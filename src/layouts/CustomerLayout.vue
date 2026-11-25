@@ -11,8 +11,8 @@
           <span class="hidden sm:inline text-amber-100/90 text-xs">Nạp tiền VietQR tự động gạch sau 3 giây • Điều phối đa luồng bảo đảm 100%</span>
         </div>
         <div class="flex items-center gap-4 text-xs">
-          <a href="https://zalo.me/0394897055" target="_blank" rel="noopener noreferrer" class="hover:text-amber-100 flex items-center gap-1 font-semibold transition">
-            <Phone class="w-3 h-3" /> 0394897055
+          <a href="https://zalo.me/0906772683" target="_blank" rel="noopener noreferrer" class="hover:text-amber-100 flex items-center gap-1 font-semibold transition">
+            <Phone class="w-3 h-3" /> 0906772683
           </a>
           <span v-if="appEnv !== 'production'" class="bg-black/25 px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider">
             {{ appEnv }}
@@ -31,7 +31,7 @@
           </div>
           <div class="flex flex-col">
             <span class="text-xl font-extrabold bg-gradient-to-r from-amber-600 via-orange-600 to-amber-500 bg-clip-text text-transparent tracking-tight">
-              langxang<span class="text-amber-600">.shop</span>
+              chaysk<span class="text-amber-600">.com</span>
             </span>
             <span class="text-[10px] font-semibold text-stone-400 tracking-wider -mt-1 uppercase">Dịch vụ game tự động</span>
           </div>
@@ -63,13 +63,13 @@
             📦 Lịch sử đơn
           </router-link>
           <a
-            href="https://zalo.me/g/bvktim491"
+            href="https://zalo.me/0906772683"
             target="_blank"
             rel="noopener noreferrer"
             class="px-3.5 py-1.5 rounded-xl text-amber-700 hover:text-amber-900 hover:bg-amber-50/80 text-xs font-semibold transition-all flex items-center gap-1"
           >
             <MessageCircle class="w-3.5 h-3.5 text-amber-600" />
-            <span>Box Zalo VIP</span>
+            <span>Hỗ trợ Zalo</span>
           </a>
         </nav>
 
@@ -130,13 +130,13 @@
                     <Package class="w-4 h-4 text-orange-500" /> Đơn hàng của tôi
                   </router-link>
                   <a
-                    href="https://zalo.me/g/bvktim491"
+                    href="https://zalo.me/0906772683"
                     target="_blank"
                     rel="noopener noreferrer"
                     @click="isUserMenuOpen = false"
                     class="flex items-center gap-2 px-3 py-2 text-xs font-medium text-amber-700 rounded-xl hover:bg-amber-50 transition"
                   >
-                    <MessageCircle class="w-4 h-4 text-amber-600" /> Nhóm Zalo Hỗ Trợ
+                    <MessageCircle class="w-4 h-4 text-amber-600" /> Liên hệ Zalo
                   </a>
                   <router-link
                     v-if="authStore.isAdmin"
@@ -219,12 +219,12 @@
           📦 Lịch sử đơn hàng
         </router-link>
         <a
-          href="https://zalo.me/g/bvktim491"
+          href="https://zalo.me/0906772683"
           target="_blank"
           rel="noopener noreferrer"
           class="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-amber-700 hover:bg-amber-50 transition"
         >
-          <MessageCircle class="w-4 h-4 text-amber-600" /> Nhóm Zalo Hỗ Trợ Khách Hàng
+          <MessageCircle class="w-4 h-4 text-amber-600" /> Zalo Hỗ Trợ Khách Hàng
         </a>
       </div>
     </header>
@@ -244,19 +244,19 @@
               <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-amber-500 to-orange-500 flex items-center justify-center text-white shadow-md shadow-orange-500/20">
                 <Sparkles class="w-4 h-4" />
               </div>
-              <span class="text-xl font-black text-white tracking-tight">langxang<span class="text-amber-500">.shop</span></span>
+              <span class="text-xl font-black text-white tracking-tight">chaysk<span class="text-amber-500">.com</span></span>
             </div>
             <p class="text-stone-400 max-w-md leading-relaxed text-xs">
               Nền tảng cung cấp dịch vụ và tài khoản game Liên Quân tự động 100%. Nạp tiền thông minh qua VietQR gạch thẻ tự động không cần người duyệt, đảm bảo tốc độ và bảo mật tối đa.
             </p>
             <div class="pt-2 flex flex-wrap gap-4 text-stone-300">
-              <a href="https://zalo.me/0394897055" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-stone-800/80 hover:bg-stone-800 border border-stone-700/60 px-3.5 py-2 rounded-xl text-xs transition">
+              <a href="https://zalo.me/0906772683" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-stone-800/80 hover:bg-stone-800 border border-stone-700/60 px-3.5 py-2 rounded-xl text-xs transition">
                 <Phone class="w-3.5 h-3.5 text-amber-500" />
-                <span>Zalo Admin: <strong class="text-white">0394897055</strong></span>
+                <span>Zalo Admin: <strong class="text-white">0906772683</strong></span>
               </a>
-              <a href="https://zalo.me/g/bvktim491" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-400 px-3.5 py-2 rounded-xl text-xs transition font-semibold">
+              <a href="https://www.facebook.com/share/1DdtvRv99p/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-400 px-3.5 py-2 rounded-xl text-xs transition font-semibold">
                 <Users class="w-3.5 h-3.5" />
-                <span>Nhóm Zalo Trao Đổi</span>
+                <span>Liên hệ Facebook</span>
               </a>
             </div>
           </div>
@@ -277,15 +277,20 @@
             <h4 class="text-stone-200 font-bold uppercase tracking-wider text-[11px] mb-4">Hỗ trợ 24/7</h4>
             <ul class="space-y-2.5">
               <li>
-                <a href="https://zalo.me/g/bvktim491" target="_blank" rel="noopener noreferrer" class="hover:text-amber-400 inline-flex items-center gap-1.5 transition">
+                <a href="https://www.facebook.com/share/1DdtvRv99p/" target="_blank" rel="noopener noreferrer" class="hover:text-amber-400 inline-flex items-center gap-1.5 transition">
                   <MessageCircle class="w-3.5 h-3.5 text-amber-500" />
-                  <span>Kênh hỗ trợ thành viên</span>
+                  <span>Facebook hỗ trợ</span>
                 </a>
               </li>
               <li>
-                <a href="https://zalo.me/0394897055" target="_blank" rel="noopener noreferrer" class="hover:text-amber-400 inline-flex items-center gap-1.5 transition">
+                <a href="https://zalo.me/0906772683" target="_blank" rel="noopener noreferrer" class="hover:text-amber-400 inline-flex items-center gap-1.5 transition">
                   <Phone class="w-3.5 h-3.5 text-emerald-400" />
-                  <span>Hotline khẩn cấp</span>
+                  <span>Zalo: 0906772683</span>
+                </a>
+              </li>
+              <li>
+                <a href="mailto:huynhlegiahuy93@gmail.com" class="hover:text-amber-400 break-all transition">
+                  huynhlegiahuy93@gmail.com
                 </a>
               </li>
               <li class="pt-2 text-stone-500 text-[11px]">
@@ -296,7 +301,7 @@
         </div>
 
         <div class="mt-8 flex flex-col sm:flex-row justify-between items-center text-[11px] text-stone-500 gap-4">
-          <span>© 2026 langxang.shop • Vận hành bởi hệ thống điều phối đa luồng.</span>
+          <span>© 2026 chaysk.com • Vận hành bởi hệ thống điều phối đa luồng.</span>
           <div class="flex items-center gap-3">
             <span class="inline-flex items-center gap-1.5 bg-emerald-950/60 text-emerald-400 border border-emerald-800/40 px-2.5 py-1 rounded-full text-[10px] font-semibold">
               <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
@@ -309,10 +314,10 @@
 
     <!-- Floating Zalo Button -->
     <a
-      href="https://zalo.me/g/bvktim491"
+      href="https://zalo.me/0906772683"
       target="_blank"
       rel="noopener noreferrer"
-      title="Tham gia Nhóm Zalo Hỗ Trợ"
+      title="Liên hệ Zalo 0906772683"
       class="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white px-4 py-2.5 rounded-full shadow-lg shadow-orange-600/30 hover:shadow-xl hover:scale-105 transition-all group cursor-pointer"
     >
       <div class="w-7 h-7 rounded-full bg-white text-orange-600 flex items-center justify-center font-bold shadow-xs group-hover:rotate-12 transition-transform">
@@ -320,7 +325,7 @@
       </div>
       <div class="text-left hidden sm:block pr-1">
         <div class="text-[10px] text-amber-100 font-medium leading-none">Hỗ trợ 24/7</div>
-        <div class="text-xs font-bold leading-tight">Nhóm Zalo VIP</div>
+        <div class="text-xs font-bold leading-tight">Chat Zalo ngay</div>
       </div>
     </a>
   </div>

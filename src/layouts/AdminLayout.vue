@@ -8,7 +8,7 @@
           <div class="w-8 h-8 rounded-lg bg-sky-500 flex items-center justify-center text-white">
             <ShieldCheck class="w-5 h-5" />
           </div>
-          <span>langxang Admin</span>
+          <span>chaysk.com Admin</span>
         </router-link>
         <span class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-sky-950 text-sky-400 border border-sky-800">
           {{ appEnv }}

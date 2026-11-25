@@ -198,7 +198,7 @@
 
         <div class="flex justify-between py-1 text-sm">
           <span class="text-slate-400">Cổng xử lý</span>
-          <span class="font-medium text-slate-800">langxang Cloud Automated</span>
+          <span class="font-medium text-slate-800">chaysk.com Cloud Automated</span>
         </div>
       </div>
     </div>

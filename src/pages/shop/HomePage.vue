@@ -284,31 +284,34 @@
             Cộng Đồng Game Thủ
           </span>
           <h3 class="text-2xl sm:text-3xl font-black tracking-tight">
-            Gia Nhập Nhóm Zalo Nhận Ưu Đãi & Code Rương Hàng Tuần
+            Kết Nối Với chaysk.com Qua Facebook & Zalo
           </h3>
           <p class="text-xs sm:text-sm text-stone-300 leading-relaxed">
-            Tham gia giao lưu cùng hàng nghìn thành viên, cập nhật thông báo bảo trì, hướng dẫn nạp và nhận giftcode độc quyền từ Admin.
+            Liên hệ để được tư vấn dịch vụ, hướng dẫn nạp tiền và hỗ trợ đơn hàng qua Facebook, Zalo hoặc email.
           </p>
           <div class="pt-2 flex flex-wrap items-center gap-4">
             <a
-              href="https://zalo.me/g/bvktim491"
+              href="https://www.facebook.com/share/1DdtvRv99p/"
               target="_blank"
               rel="noopener noreferrer"
               class="px-6 py-3 rounded-2xl bg-amber-500 hover:bg-amber-400 text-stone-950 font-black text-xs shadow-lg transition-all hover:scale-105 flex items-center gap-2"
             >
               <MessageCircle class="w-4 h-4 fill-stone-950" />
-              <span>Tham gia Nhóm Zalo Ngay</span>
+              <span>Liên hệ Facebook</span>
             </a>
             <a
-              href="https://zalo.me/0394897055"
+              href="https://zalo.me/0906772683"
               target="_blank"
               rel="noopener noreferrer"
               class="text-xs text-stone-300 hover:text-white font-semibold flex items-center gap-1.5"
             >
               <Phone class="w-4 h-4 text-emerald-400" />
-              <span>Liên hệ Admin: 0394897055</span>
+              <span>Zalo: 0906772683</span>
             </a>
           </div>
+          <a href="mailto:huynhlegiahuy93@gmail.com" class="inline-block text-xs text-stone-300 hover:text-white break-all transition">
+            Email: huynhlegiahuy93@gmail.com
+          </a>
         </div>
       </div>
     </section>

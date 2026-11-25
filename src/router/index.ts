@@ -88,7 +88,7 @@ router.beforeEach(async (to, _from, next) => {
   }
 
   // Cập nhật title trình duyệt
-  const appName = import.meta.env.VITE_APP_NAME || 'langxang.shop'
+  const appName = import.meta.env.VITE_APP_NAME || 'chaysk.com'
   document.title = to.meta.title ? `${to.meta.title} — ${appName}` : appName
 
   // Kiểm tra guest only
