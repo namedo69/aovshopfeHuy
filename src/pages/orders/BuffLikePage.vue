@@ -17,6 +17,15 @@
         <input v-model.number="quantity" type="number" :min="selected?.minQuantity || 1" :max="selected?.maxQuantity || 1" required :disabled="busy" class="block w-full border rounded-lg p-2 mt-1" />
       </label>
       <p class="text-sm">Tổng: <strong>{{ (selected?.likesPerItem || 0) * quantity }} like</strong>. Giá và chiết khấu được tính theo tài khoản khi thanh toán; admin được miễn phí theo chính sách shop.</p>
+      <div v-if="selected" class="rounded-xl border border-orange-200 bg-orange-50 p-4 space-y-2 text-sm" aria-live="polite">
+        <div class="flex justify-between"><span>Giá niêm yết / gói</span><strong>{{ formatVND(selected.price) }}</strong></div>
+        <div class="flex justify-between"><span>Thành tiền ({{ safeQuantity }} gói)</span><strong>{{ formatVND(subtotal) }}</strong></div>
+        <div v-if="auth.isAdmin" class="flex justify-between text-emerald-700"><span>Ưu đãi admin — giảm 100%</span><strong>−{{ formatVND(subtotal) }}</strong></div>
+        <div v-else-if="auth.userTierDiscount > 0" class="flex justify-between text-emerald-700"><span>Chiết khấu cấp bậc {{ auth.userTierDiscount }}%</span><strong>−{{ formatVND(subtotal - estimatedTotal) }}</strong></div>
+        <div class="flex justify-between border-t border-orange-200 pt-2 text-base font-bold text-orange-700"><span>{{ auth.isAdmin ? 'Cần thanh toán' : 'Thanh toán dự kiến' }}</span><span>{{ formatVND(estimatedTotal) }}</span></div>
+        <p v-if="auth.isAdmin" class="text-xs text-stone-600">Đơn admin miễn phí, không trừ tiền ví.</p>
+        <p v-else class="text-xs text-stone-600">Dự kiến theo giá gói và chiết khấu cấp bậc. Nếu tài khoản có giá riêng cho sản phẩm, backend áp dụng giá riêng khi tạo đơn.</p>
+      </div>
       <button :disabled="busy || !selected" class="bg-orange-600 text-white rounded-lg px-5 py-2 disabled:opacity-50">{{ busy ? 'Đang gửi...' : 'Đặt đơn buff like' }}</button>
       <p v-if="message" role="status" class="text-sm">{{ message }}</p>
     </form>
@@ -46,6 +55,13 @@ const productId = ref('')
 const targetName = ref('')
 const quantity = ref(1)
 const selected = computed(() => products.value.find(p => p.id === productId.value))
+const safeQuantity = computed(() => Number.isInteger(quantity.value) && quantity.value > 0 ? quantity.value : 0)
+const subtotal = computed(() => (selected.value?.price || 0) * safeQuantity.value)
+const estimatedTotal = computed(() => {
+  if (auth.isAdmin) return 0
+  const unitPrice = Math.max(0, Math.round((selected.value?.price || 0) * (100 - auth.userTierDiscount) / 100))
+  return unitPrice * safeQuantity.value
+})
 const busy = ref(false)
 const message = ref('')
 const jobsError = ref('')
@@ -71,7 +87,8 @@ async function submit() {
   try {
     const result = await apiClient.post('/orders', JSON.parse(body), {headers: {'Idempotency-Key': pending.key}})
     pending = null
-    message.value = `Đã xếp hàng đơn ${result.data.order_code || result.data.orderCode}.`
+    const paid = Number(result.data.total_amount ?? result.data.totalAmount)
+    message.value = `Đã xếp hàng đơn ${result.data.order_code || result.data.orderCode}.${Number.isFinite(paid) ? ` Thanh toán thực tế: ${formatVND(paid)}.` : ''}`
     await loadJobs()
   } catch (err: any) {
     if (err.response?.status >= 400 && err.response.status < 500) pending = null
