@@ -205,6 +205,9 @@
           <div v-else-if="selectedProductType === 'buff_like'" class="p-3.5 bg-orange-50 border rounded-xl space-y-2">
             <label class="block text-xs font-bold">Số like mỗi gói</label>
             <input v-model.number="likesPerItemInput" type="number" min="1" max="1000000" required class="w-full border rounded-lg p-2" />
+            <label class="block text-xs font-bold">Số gói tối đa mỗi đơn</label>
+            <input v-model.number="maxBuffPackages" type="number" min="1" :max="Math.min(10000, Math.floor(1000000 / (likesPerItemInput || 1)))" required class="w-full border rounded-lg p-2" />
+            <p class="text-xs">Tổng like = số gói × like mỗi gói, tối đa 1.000.000 like mỗi đơn.</p>
             <p class="text-xs">Khách đặt tại /buff-like. PC nhận tên nhân vật và số like rồi chạy engine (4).</p>
           </div>
           <div v-else class="p-3.5 bg-purple-50/70 border border-purple-100 rounded-xl space-y-1.5">
@@ -277,6 +280,7 @@ const currentEditId = ref<string | null>(null)
 const requestsPerItemInput = ref<number>(1)
 const selectedProductType = ref<'chungsuc' | 'group_chest_open' | 'buff_like'>('chungsuc')
 const likesPerItemInput = ref(100)
+const maxBuffPackages = ref(10000)
 
 const alertMessage = ref('')
 const alertType = ref<'success' | 'error'>('success')
@@ -333,6 +337,7 @@ const openCreateModal = () => {
   currentEditId.value = null
   requestsPerItemInput.value = 1
   likesPerItemInput.value = 100
+  maxBuffPackages.value = 10000
   selectedProductType.value = 'chungsuc'
   form.value = {
     name: '',
@@ -355,6 +360,7 @@ const openEditModal = (item: Product) => {
   requestsPerItemInput.value = item.requestsPerItem || 1
   selectedProductType.value = item.productType === 'buff_like' ? 'buff_like' : item.productType === 'group_chest_open' ? 'group_chest_open' : 'chungsuc'
   likesPerItemInput.value = item.likesPerItem || 100
+  maxBuffPackages.value = item.maxQuantity || 1
   form.value = {
     name: item.name,
     slug: item.slug,
@@ -372,6 +378,8 @@ const openEditModal = (item: Product) => {
 const handleSaveProduct = async () => {
   if (selectedProductType.value === 'buff_like') {
     form.value.inputSchema = { productType: 'buff_like', likesPerItem: likesPerItemInput.value, required: ['targetName'] }
+    form.value.minQuantity = 1
+    form.value.maxQuantity = Math.max(1, Math.min(maxBuffPackages.value, 10000, Math.floor(1000000 / likesPerItemInput.value)))
   } else if (selectedProductType.value === 'group_chest_open') {
     form.value.inputSchema = {
       productType: 'group_chest_open',
