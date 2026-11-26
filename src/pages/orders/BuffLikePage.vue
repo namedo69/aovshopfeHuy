@@ -26,8 +26,12 @@
         <p v-if="auth.isAdmin" class="text-xs text-stone-600">Đơn admin miễn phí, không trừ tiền ví.</p>
         <p v-else class="text-xs text-stone-600">Dự kiến theo giá gói và chiết khấu cấp bậc. Nếu tài khoản có giá riêng cho sản phẩm, backend áp dụng giá riêng khi tạo đơn.</p>
       </div>
-      <button :disabled="busy || !selected" class="bg-orange-600 text-white rounded-lg px-5 py-2 disabled:opacity-50">{{ busy ? 'Đang gửi...' : 'Đặt đơn buff like' }}</button>
-      <p v-if="message" role="status" class="text-sm">{{ message }}</p>
+      <button :disabled="busy || !selected" class="bg-orange-600 text-white rounded-lg px-5 py-2 disabled:opacity-50">{{ busy ? 'Đang quét bài và kiểm tra đơn...' : 'Đặt đơn buff like' }}</button>
+      <p v-if="busy" role="status" class="text-sm text-orange-700">Đang tìm nhân vật và kiểm tra bài đăng. Vui lòng chờ kết quả.</p>
+      <div v-if="message" :role="messageIsError ? 'alert' : 'status'" class="rounded-xl border p-4 text-sm" :class="messageIsError ? 'border-rose-300 bg-rose-50 text-rose-800' : 'border-emerald-200 bg-emerald-50 text-emerald-800'">
+        <p class="font-bold mb-1">{{ messageIsError ? 'Không thể đặt đơn' : 'Đặt đơn thành công' }}</p>
+        <p>{{ message }}</p>
+      </div>
     </form>
     <div class="bg-white border rounded-2xl p-5 space-y-3">
       <div class="flex justify-between"><h2 class="font-bold">{{ auth.isAdmin ? 'Hàng đợi PC (tất cả khách)' : 'Đơn buff like của bạn' }}</h2><button @click="loadJobs" class="text-orange-600 text-sm">Làm mới</button></div>
@@ -64,6 +68,7 @@ const estimatedTotal = computed(() => {
 })
 const busy = ref(false)
 const message = ref('')
+const messageIsError = ref(false)
 const jobsError = ref('')
 const jobs = ref<Array<{order_id: string; order_code: string; target_name: string; requested: number; done: number; state: string}>>([])
 const labels: Record<string, string> = {queued: 'Chờ PC nhận', claimed: 'PC đã nhận', running: 'Đang chạy', completed: 'Hoàn thành', needs_review: 'Cần kiểm tra engine'}
@@ -79,11 +84,14 @@ async function submit() {
   if (busy.value) return
   const body = JSON.stringify({items: [{productId: productId.value, quantity: quantity.value, customerInput: {targetName: targetName.value.trim()}}]})
   if (pending && pending.body !== body) {
+    messageIsError.value = true
     message.value = 'Yêu cầu trước chưa rõ kết quả. Giữ nguyên thông tin và thử lại để lấy đúng đơn, hoặc kiểm tra lịch sử trước.'
     return
   }
   pending ||= {key: crypto.randomUUID(), body}
   busy.value = true
+  message.value = ''
+  messageIsError.value = false
   try {
     const result = await apiClient.post('/orders', JSON.parse(body), {headers: {'Idempotency-Key': pending.key}})
     pending = null
@@ -91,13 +99,16 @@ async function submit() {
     message.value = `Đã xếp hàng đơn ${result.data.order_code || result.data.orderCode}.${Number.isFinite(paid) ? ` Thanh toán thực tế: ${formatVND(paid)}.` : ''}`
     await loadJobs()
   } catch (err: any) {
-    if (err.response?.status >= 400 && err.response.status < 500) pending = null
+    const errorCode = err.response?.data?.error?.code
+    // These scanner errors explicitly guarantee checkout has not created an order.
+    if ((err.response?.status >= 400 && err.response.status < 500) || errorCode === 'SCAN_UNAVAILABLE') pending = null
+    messageIsError.value = true
     message.value = err.response?.data?.error?.message || 'Chưa xác nhận tạo đơn. Thử lại cùng thông tin để tránh trùng đơn.'
   } finally { busy.value = false }
 }
 onMounted(async () => {
   try { products.value = (await productService.getProducts()).filter(p => p.productType === 'buff_like') }
-  catch { message.value = 'Không tải được gói dịch vụ.' }
+  catch { messageIsError.value = true; message.value = 'Không tải được gói dịch vụ.' }
   await loadJobs()
   timer = setInterval(loadJobs, 5000)
 })
