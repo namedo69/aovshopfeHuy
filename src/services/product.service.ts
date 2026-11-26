@@ -74,6 +74,7 @@ export function mapBackendProduct(raw: BackendProduct | Product): Product {
     price,
     status: b.isActive ? 'active' : 'inactive',
     requestsPerItem,
+    likesPerItem: Number(rawSchemaObj.likesPerItem) || undefined,
     inputSchema: inputSchemaList,
     imageUrl: b.imageUrl,
     minQuantity: b.minQuantity,

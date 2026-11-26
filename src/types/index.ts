@@ -94,6 +94,7 @@ export interface Product {
   status: 'active' | 'inactive'
   providerServiceId?: string
   requestsPerItem?: number
+  likesPerItem?: number
   inputSchema: InputFieldSchema[]
   imageUrl?: string | null
   minQuantity?: number

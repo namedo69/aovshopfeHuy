@@ -164,6 +164,10 @@
           <div>
             <label class="block text-xs font-semibold text-slate-700 mb-1">Loại dịch vụ *</label>
             <div class="grid grid-cols-2 gap-3">
+              <label class="flex items-center gap-2 p-3 rounded-xl border cursor-pointer text-xs font-bold">
+                <input type="radio" value="buff_like" v-model="selectedProductType" />
+                <span>♥ Buff Like (PC)</span>
+              </label>
               <label :class="['flex items-center gap-2 p-3 rounded-xl border cursor-pointer text-xs font-bold transition', selectedProductType === 'chungsuc' ? 'bg-sky-50 border-sky-400 text-sky-800' : 'bg-slate-50 border-slate-200 text-slate-600']">
                 <input type="radio" value="chungsuc" v-model="selectedProductType" class="hidden" />
                 <span>⚡ Chung Sức (Code sự kiện)</span>
@@ -198,6 +202,11 @@
           </div>
 
           <!-- Thông tin cho Mở rương -->
+          <div v-else-if="selectedProductType === 'buff_like'" class="p-3.5 bg-orange-50 border rounded-xl space-y-2">
+            <label class="block text-xs font-bold">Số like mỗi gói</label>
+            <input v-model.number="likesPerItemInput" type="number" min="1" max="1000000" required class="w-full border rounded-lg p-2" />
+            <p class="text-xs">Khách đặt tại /buff-like. PC nhận tên nhân vật và số like rồi chạy engine (4).</p>
+          </div>
           <div v-else class="p-3.5 bg-purple-50/70 border border-purple-100 rounded-xl space-y-1.5">
             <div class="flex items-center justify-between">
               <label class="block text-xs font-bold text-purple-900">
@@ -266,7 +275,8 @@ const isModalOpen = ref(false)
 const isEditing = ref(false)
 const currentEditId = ref<string | null>(null)
 const requestsPerItemInput = ref<number>(1)
-const selectedProductType = ref<'chungsuc' | 'group_chest_open'>('chungsuc')
+const selectedProductType = ref<'chungsuc' | 'group_chest_open' | 'buff_like'>('chungsuc')
+const likesPerItemInput = ref(100)
 
 const alertMessage = ref('')
 const alertType = ref<'success' | 'error'>('success')
@@ -322,6 +332,7 @@ const openCreateModal = () => {
   isEditing.value = false
   currentEditId.value = null
   requestsPerItemInput.value = 1
+  likesPerItemInput.value = 100
   selectedProductType.value = 'chungsuc'
   form.value = {
     name: '',
@@ -342,7 +353,8 @@ const openEditModal = (item: Product) => {
   isEditing.value = true
   currentEditId.value = item.id
   requestsPerItemInput.value = item.requestsPerItem || 1
-  selectedProductType.value = item.productType === 'group_chest_open' ? 'group_chest_open' : 'chungsuc'
+  selectedProductType.value = item.productType === 'buff_like' ? 'buff_like' : item.productType === 'group_chest_open' ? 'group_chest_open' : 'chungsuc'
+  likesPerItemInput.value = item.likesPerItem || 100
   form.value = {
     name: item.name,
     slug: item.slug,
@@ -358,7 +370,9 @@ const openEditModal = (item: Product) => {
 }
 
 const handleSaveProduct = async () => {
-  if (selectedProductType.value === 'group_chest_open') {
+  if (selectedProductType.value === 'buff_like') {
+    form.value.inputSchema = { productType: 'buff_like', likesPerItem: likesPerItemInput.value, required: ['targetName'] }
+  } else if (selectedProductType.value === 'group_chest_open') {
     form.value.inputSchema = {
       productType: 'group_chest_open',
       required: ['accounts'],
@@ -366,7 +380,7 @@ const handleSaveProduct = async () => {
     }
   } else {
     form.value.inputSchema = {
-      ...(form.value.inputSchema || {}),
+      productType: 'chungsuc',
       accountId: { label: 'Code Sự kiện', type: 'text', required: true },
       requestsPerItem: Math.max(1, Math.floor(requestsPerItemInput.value || 1)),
     }

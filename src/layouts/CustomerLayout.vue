@@ -39,6 +39,7 @@
 
         <!-- Navigation Links (Centered Desktop) -->
         <nav class="hidden lg:flex items-center gap-1 bg-stone-100/80 p-1 rounded-2xl border border-stone-200/60 shadow-inner">
+          <router-link to="/buff-like" class="px-3.5 py-1.5 rounded-xl text-orange-700 text-xs font-semibold hover:bg-white">♥ Buff Like</router-link>
           <router-link
             to="/products"
             class="px-3.5 py-1.5 rounded-xl text-stone-600 hover:text-stone-900 hover:bg-white text-xs font-semibold transition-all"
@@ -188,6 +189,7 @@
 
       <!-- Mobile Navigation Drawer -->
       <div v-show="isMobileMenuOpen" class="lg:hidden border-t border-amber-100 bg-white/95 backdrop-blur-xl px-4 py-3 space-y-2 animate-in slide-in-from-top-2 duration-150">
+        <router-link to="/buff-like" @click="isMobileMenuOpen = false" class="block px-3 py-2 rounded-xl text-xs font-bold text-orange-700">♥ Buff Like</router-link>
         <router-link
           to="/products"
           @click="isMobileMenuOpen = false"

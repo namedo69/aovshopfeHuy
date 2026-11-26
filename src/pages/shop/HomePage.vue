@@ -259,7 +259,7 @@
                 <span class="text-xl font-black text-orange-600 tracking-tight">{{ formatVND(item.price) }}</span>
               </div>
               <router-link
-                :to="`/products/${item.slug}`"
+                :to="item.productType === 'buff_like' ? '/buff-like' : `/products/${item.slug}`"
                 class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white text-xs font-bold shadow-xs shadow-orange-500/20 transition-all group-hover:shadow-md group-hover:scale-105 flex items-center gap-1.5"
               >
                 <span>Đặt ngay</span>

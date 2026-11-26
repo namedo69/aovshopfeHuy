@@ -17,6 +17,7 @@ import CheckoutPage from '@/pages/orders/CheckoutPage.vue'
 import OrderListPage from '@/pages/orders/OrderListPage.vue'
 import OrderDetailPage from '@/pages/orders/OrderDetailPage.vue'
 import GroupChestPage from '@/pages/orders/GroupChestPage.vue'
+import BuffLikePage from '@/pages/orders/BuffLikePage.vue'
 
 // Admin Pages
 import AdminDashboard from '@/pages/admin/AdminDashboard.vue'
@@ -44,6 +45,7 @@ const routes: RouteRecordRaw[] = [
       { path: 'orders', name: 'orders', component: OrderListPage, meta: { requiresAuth: true, title: 'Đơn hàng' } },
       { path: 'orders/:orderCode', name: 'order-detail', component: OrderDetailPage, meta: { requiresAuth: true, title: 'Chi tiết đơn' } },
       { path: 'group-chest', name: 'group-chest', component: GroupChestPage, meta: { requiresAuth: true, title: 'Mở rương nhóm' } },
+      { path: 'buff-like', name: 'buff-like', component: BuffLikePage, meta: { requiresAuth: true, title: 'Buff Like' } },
     ],
   },
 
