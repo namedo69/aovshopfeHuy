@@ -17,6 +17,10 @@
         <input v-model.number="quantity" type="number" :min="selected?.minQuantity || 1" :max="selected?.maxQuantity || 1" required :disabled="busy" class="block w-full border rounded-lg p-2 mt-1" />
       </label>
       <p class="text-sm">Tổng: <strong>{{ (selected?.likesPerItem || 0) * quantity }} like</strong>. Giá và chiết khấu được tính theo tài khoản khi thanh toán; admin được miễn phí theo chính sách shop.</p>
+      <label class="block text-sm">Ghi chú (không bắt buộc)
+        <textarea v-model="customerNote" maxlength="1000" rows="3" :disabled="busy" placeholder="Nhập ghi chú cho đơn hàng..." class="block w-full border rounded-lg p-2 mt-1"></textarea>
+        <span class="block text-xs text-stone-500 mt-1">{{ customerNote.length }}/1.000 ký tự</span>
+      </label>
       <div v-if="selected" class="rounded-xl border border-orange-200 bg-orange-50 p-4 space-y-2 text-sm" aria-live="polite">
         <div class="flex justify-between"><span>Giá niêm yết / gói</span><strong>{{ formatVND(selected.price) }}</strong></div>
         <div class="flex justify-between"><span>Thành tiền ({{ safeQuantity }} gói)</span><strong>{{ formatVND(subtotal) }}</strong></div>
@@ -57,6 +61,7 @@ const auth = useAuthStore()
 const products = ref<Product[]>([])
 const productId = ref('')
 const targetName = ref('')
+const customerNote = ref('')
 const quantity = ref(1)
 const selected = computed(() => products.value.find(p => p.id === productId.value))
 const safeQuantity = computed(() => Number.isInteger(quantity.value) && quantity.value > 0 ? quantity.value : 0)
@@ -82,7 +87,7 @@ async function loadJobs() {
 }
 async function submit() {
   if (busy.value) return
-  const body = JSON.stringify({items: [{productId: productId.value, quantity: quantity.value, customerInput: {targetName: targetName.value.trim()}}]})
+  const body = JSON.stringify({items: [{productId: productId.value, quantity: quantity.value, customerInput: {targetName: targetName.value.trim()}}], customerNote: customerNote.value.trim() || undefined})
   if (pending && pending.body !== body) {
     messageIsError.value = true
     message.value = 'Yêu cầu trước chưa rõ kết quả. Giữ nguyên thông tin và thử lại để lấy đúng đơn, hoặc kiểm tra lịch sử trước.'
